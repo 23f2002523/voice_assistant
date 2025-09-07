@@ -1,27 +1,19 @@
-import pyttsx3
-import speech_recognition as sr  # future me use hoga
+# startup.py
+from voice import speak
 
-# Text to Speech function
-def speak(text):
-    engine = pyttsx3.init()
-    engine.say(text)
-    engine.runAndWait()
+def startup_jarvis(secret_password="1234"):
+    speak("Jarvis Activated. Please enter your password to unlock.")
 
-# Unlock function
-def voice_unlock(secret_password="northstar"):
-    speak("Jarvis activated. Please enter your password to unlock Jarvis.")
     attempts = 0
-
     while attempts < 3:
-        user_input = input("Enter your password: ")
+        password = input("Enter Password: ")
 
-        if user_input.lower() == secret_password.lower():
+        if password == secret_password:
             speak("Hi, I am Jarvis. Nice to meet you again.")
             return True
         else:
             attempts += 1
-            if attempts < 3:
-                speak("Wrong password. Try again.")
-            else:
-                speak("Wrong password. Jarvis locked.")
-                return False
+            speak("Wrong password")
+
+    speak("Jarvis locked due to 3 failed attempts.")
+    return False
